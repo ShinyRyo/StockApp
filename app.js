@@ -1,14 +1,22 @@
-const apiKey = '14162069235c2e06e03b1612bfe6cedc'; // ここにAPIキーを入力
-const symbol = 'AAPL'; // 例としてAppleの銘柄コードを使用
+fetch('APIのエンドポイントURL', {
+  method: 'GET', // HTTPメソッド
+  headers: {
+    'Content-Type': 'application/json',
+    // J-Quants APIを利用する場合は、ここに認証に必要なヘッダーを追加
+    'Authorization': 'eyJjdHkiOiJKV1QiLCJlbmMiOiJBMjU2R0NNIiwiYWxnIjoiUlNBLU9BRVAifQ.Rarx_e1J5HS0ks6_Aa4XsFjW7flP7Z6y4JSW16nU-xMK-05fGzPYSy1KuHAhRmstu4c6W84fQFGJVswysp892KBnf4w10t1j2YauoLQY76xFF39bqAR5agU-Hj_3aCGauAGxYMQ8ajKNMy_MbSOM3BJERrrbhljHUmnEGlM9gKTwyXi6V-4qPM4D38rhQPoBFYU3o9hPNwQJVivNOJID0MkZ8cTfC6hLqyhv7nI_V8sE3alUiApgbcpY2HbdCrhOqj9Knjf6Au2xeJWBjiJ0AlJBl3wLOTy5oYTJUqmkvTPwS63nUBjginNzC655T40w9SeMmvVZyOfzRFgVuxw2Vg.3Qv3H3ByhuIb8Tco.Sc1atYz5yg9OHTtrHWoGq4d8S4rOYep2-KFOH3C7p-GX9WmKbtxVPD55UiSAprSdBajq6_rCChMho4Uj3Gfq-5pPl0Qtt7FlCKb3eowPFiddqaMxwOD1bkqnSvRtiBZUpJxadXlz7fNe_hvvKeJhQKiQPkamNX_-ch28EIkfCsowgmNY3B3BkpLxqw1pl2JSnzhvGhV5-jQ94vWgUJQ4OjbJ3CimlYisrM8PbHUrVMq_fmEvNI-_DISaOCeqt5ed269C1Q7LQEXP3p8aXbERtpuIxrDvUOmew7uB3eTHfdIbR-7RwgMkU34RQu9yEu84t5uqTSD6ohSTVp_P31qSkKf2kVG5G0GmABSmQvmoRJvSPNRzt_x4BxjAO9dhRXcggY8V20Cu0LlgRerYBXdmQn5SZCiuQy0J6f-dOQXYG-cgkq5wGfrStUSxP1CO-URbwi7v7Ze1FSf30z52t_a3aYf6FVMI0RrTb4FPeaU9BKmRI4r9iVNYKbGWvu_weQI6fYilWTQkeV2zDEpMwf4X16UVZM1QgVlKbxSM2Bn_wVBI8JNyEMD0tOi3Vbl3HSVnjkJSxkzsANY-2ldShZflL2BZtcEcM3YZr1At3j8uNJLYajToJugo07B6Q540l8DqEBgVBP2NTEl6-Bp7c1YwsvjENS3z6aTFshrV1f73iHrVLiYzqs9hBZOWKx2XxvkY82ifHFw8Fa8MVDNnzHlZDYfL8IOXXjNne-NwSL8ko0gnqvXRnZU8T4piG7C4S5dveTH-4wKeILThZgyBzz5EGEnYwy84YTTZpyujlwqBkQRN_RQPqyr9ws35DFiAZsnClmi444sYlhQkFjLWD_6nm9P5ekSCMNijbJr1cGDYhwJ03PedRj8xv0xNeVSC5d9uVREJtQbnn2tH0VLct8unKJGZhjzpcF_qR-MmdC7oZEc0EVN8O5YEuokMaeymLSf5zDUmogQg0VWozTifgxMeeCuzz1CoLyHdxvU8H4JlKUsBUm8lVyK7GjY5d9eLvRE8ZVGU_0E0OESEG2mWRtJYoO6LgBYXMNwP6dlSs5HD6s1Y2B2mlp2wMhIkCnK3fK4Kys9ZKr4VpEW_TJh33cCWnX3JaZgnxq6UrWi9r16KvYtNiuFa7GC5UUhNyFH6a593lnKVATN9BzE0XkpLkHsqHY-4LyhlHiZDNx_59HXjiYN2xJl-2Wo57taF65gzzW0jTw11VWd4QM89e-G7m3Gplz9EVDT_phWJlfQXzcOXV2hi574WrJfAMFpTkqSRmtazbLD7aUWU_RpTUhQb7CZS9WieFFSL6T2wehDr48K0CBAj84IHTTnYHbwGz-6RteWhLazb7LbQpCmUvw.j04qcFotb5hv0fXAuqqqBQ'
+  }
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('ネットワークレスポンスが異常です。');
+  }
+  return response.json(); // JSON形式のレスポンスをJavaScriptのオブジェクトに変換
+})
+.then(data => {
+  console.log(data); // データの利用
+  // ここでデータをHTMLに表示するロジックを書く
+})
+.catch(error => {
+  console.error('取得中にエラーが発生しました:', error);
+});
 
-fetch(`https://financialmodelingprep.com/api/v3/quote/${symbol}?apikey=${apiKey}`)
-    .then(response => response.json())
-    .then(data => {
-        const stock = data[0];
-        document.getElementById('stockInfo').innerHTML = `
-            <p>銘柄名: ${stock.name} (${stock.symbol})</p>
-            <p>現在価格: $${stock.price}</p>
-            <p>前日比: ${stock.change} (${stock.changesPercentage}%)</p>
-        `;
-    })
-    .catch(error => console.error('エラー:', error));
